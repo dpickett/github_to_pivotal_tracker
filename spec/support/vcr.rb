@@ -5,6 +5,7 @@ VCR.config do |c|
   c.cassette_library_dir = File.dirname(__FILE__) + '/../cassettes'
   c.filter_sensitive_data('<GH_USER>') { GithubToPivotalTracker.github_user }
   c.filter_sensitive_data('<GH_PASSWORD>') { GithubToPivotalTracker.github_password }
+  c.filter_sensitive_data('<PT_TOKEN>') { GithubToPivotalTracker.pivotal_token }
 end
 
 RSpec.configure do |c|

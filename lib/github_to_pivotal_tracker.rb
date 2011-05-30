@@ -1,6 +1,5 @@
 require "httparty"
 require "configatron"
-require "github_to_pivotal_tracker/github_issue"
 
 module GithubToPivotalTracker
   def self.github_user
@@ -19,8 +18,19 @@ module GithubToPivotalTracker
     configuration[:github_password] = gh_password
   end
   
+  def self.pivotal_token
+    configuration[:pivotal_token]
+  end
+  
+  def self.pivotal_token=(token)
+    configuration[:pivotal_token] = token
+  end
+  
   protected
   def self.configuration
     configatron.github_to_pivotal_tracker.to_hash
   end
 end
+
+require "github_to_pivotal_tracker/github_issue"
+require "github_to_pivotal_tracker/pivotal_tracker_story"
