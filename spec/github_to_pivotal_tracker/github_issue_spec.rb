@@ -9,12 +9,15 @@ describe GithubToPivotalTracker::GithubIssue do
     issues.should_not be_empty
   end
   
+  it "exports issues" do
+    GithubToPivotalTracker::GithubIssue.export_open(:repo => GITHUB_REPO, :user => GITHUB_REPO_USER, :pivotal_project => PT_PROJECT)
+  end
+  
   describe "an instance" do
     subject { issues.first }
     
     its(:body) { should_not be_nil }
     its(:title) { should_not be_nil }
     its(:milestone) { should_not be_nil }
-    its(:labels) { should_be kind_of(Array) }
   end
 end

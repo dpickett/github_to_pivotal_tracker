@@ -15,6 +15,16 @@ module GithubToPivotalTracker
       labels ||= []
     end
     
+    def to_pivotal_tracker_story
+      labels_to_send = labels.map{|i| i["name"]} || []
+      labels_to_send += ["milestone_#{milestone['title']}"] if !milestone.nil? && milestone != {}
+      GithubToPivotalTracker::PivotalTrackerStory.new({
+        :name => title,
+        :description => body,
+        :labels => labels_to_send
+      })
+    end
+    
     class << self
       def find(options = {})
         user, repo = options.delete(:user), options.delete(:repo)
@@ -28,6 +38,15 @@ module GithubToPivotalTracker
         response ||= []
         response.map do |issue_hash|
           new(issue_hash)
+        end
+      end
+      
+      def export_open(options = {})
+        pivotal_project_id = options[:pivotal_project]
+        find({:state => "open", :per_page => 100}.merge(options)).each do |issue| 
+          story = issue.to_pivotal_tracker_story 
+          story.project_id = pivotal_project_id
+          story.save
         end
       end
     end
