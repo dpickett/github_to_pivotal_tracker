@@ -3,12 +3,18 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
+gem "httparty"
+gem "configatron"
+
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
+  gem "ruby-debug19"
   gem "rspec", "~> 2.3.0"
   gem "yard", "~> 0.6.0"
   gem "bundler", "~> 1.0.0"
   gem "jeweler", "~> 1.6.0"
   gem "rcov", ">= 0"
+  gem "webmock"
+  gem "vcr"
 end
